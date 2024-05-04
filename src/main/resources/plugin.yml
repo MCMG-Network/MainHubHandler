@@ -1,0 +1,4 @@
+name: Main_Hub_Handler
+version: '${project.version}'
+main: mcmgnetwork.main_hub_handler.Main_Hub_Handler
+api-version: '1.20'
