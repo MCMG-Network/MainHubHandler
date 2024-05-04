@@ -4,6 +4,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
 
@@ -35,4 +37,18 @@ public class PlayerGriefListener implements Listener {
      */
     @EventHandler
     public void onEntityDamage(EntityDamageEvent e) { e.setCancelled(true); }
+
+    /**
+     * Prevents any blocks from being broken.
+     * @param e The event to be cancelled
+     */
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent e) { e.setCancelled(true); }
+
+    /**
+     * Prevents any blocks from being placed.
+     * @param e The event to be cancelled
+     */
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent e) { e.setCancelled(true); }
 }
