@@ -1,8 +1,7 @@
-package mcmgnetwork.main_hub_handler.listeners;
+package mcmgnetwork.main_hub_handler;
 
 import io.papermc.paper.event.player.PlayerOpenSignEvent;
 import org.bukkit.ChatColor;
-import org.bukkit.block.data.type.Door;
 import org.bukkit.block.data.type.TrapDoor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,7 +20,7 @@ import org.bukkit.event.player.*;
  *  <p>Author(s): Miles Bovero
  *  <p>Date Created: 5/4/24
  */
-public class PlayerGriefListener implements Listener {
+public class PlayerGriefPrevention implements Listener {
 
     /**
      * Prevents players from manipulating armor stands.
@@ -112,6 +111,10 @@ public class PlayerGriefListener implements Listener {
     @EventHandler
     public void onBlockExplode(BlockExplodeEvent e) { e.setCancelled(true); }
 
+    /**
+     * Prevents entities from exploding.
+     * @param e The event to be cancelled
+     */
     @EventHandler
     public void onEntityExplode(EntityExplodeEvent e) { e.setCancelled(true); }
 
