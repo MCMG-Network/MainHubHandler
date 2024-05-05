@@ -8,9 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFertilizeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
-import org.bukkit.event.player.PlayerBucketEvent;
-import org.bukkit.event.player.PlayerHarvestBlockEvent;
+import org.bukkit.event.player.*;
 
 /**
  * Description: <p>
@@ -70,9 +68,17 @@ public class PlayerGriefListener implements Listener {
     public void onBlockFertilize(BlockFertilizeEvent e) { e.setCancelled(true); }
 
     /**
-     * Prevents players from using buckets (placing/picking up liquids).
+     * Prevents players from emptying buckets.
      * @param e The event to be cancelled.
      */
     @EventHandler
-    public void onBucketUse(PlayerBucketEvent e) { e.setCancelled(true); }
+    public void onBucketEmpty(PlayerBucketEmptyEvent e) { e.setCancelled(true); }
+
+    /**
+     * Prevents players from filling buckets (picking up liquids).
+     * @param e The event to be cancelled.
+     */
+    @EventHandler
+    public void onBucketFill(PlayerBucketFillEvent e) { e.setCancelled(true); }
+
 }
