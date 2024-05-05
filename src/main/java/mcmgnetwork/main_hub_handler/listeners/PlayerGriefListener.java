@@ -2,6 +2,7 @@ package mcmgnetwork.main_hub_handler.listeners;
 
 import io.papermc.paper.event.player.PlayerOpenSignEvent;
 import org.bukkit.ChatColor;
+import org.bukkit.block.data.type.Door;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -115,4 +116,16 @@ public class PlayerGriefListener implements Listener {
      */
     @EventHandler
     public void onEntityChangeBlock(EntityChangeBlockEvent e) { e.setCancelled(true); }
+
+    /**
+     * Detects when players interact with a door and cancels that interaction.
+     * @param e The event to be analyzed and possibly canceled.
+     */
+    @EventHandler
+    public void onDoorInteract(PlayerInteractEvent e)
+    {
+        if (!e.hasBlock()) return;
+        if (e.getClickedBlock().getBlockData() instanceof Door)
+            e.setCancelled(true);
+    }
 }
