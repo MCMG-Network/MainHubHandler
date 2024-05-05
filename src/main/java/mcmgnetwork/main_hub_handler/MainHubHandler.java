@@ -11,7 +11,7 @@ public final class MainHubHandler extends JavaPlugin {
         // Register event listeners/handlers
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerGriefPrevention(), this);
-        pluginManager.registerEvents(new VoidLevitationHandler(), this);
+        pluginManager.registerEvents(new VoidHandler(), this);
 
         // Set world game rules/attributes
         PlayerGriefPrevention.setGameRules();
