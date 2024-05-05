@@ -9,6 +9,7 @@ import org.bukkit.event.block.BlockFertilizeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
+import org.bukkit.event.player.PlayerBucketEvent;
 import org.bukkit.event.player.PlayerHarvestBlockEvent;
 
 /**
@@ -67,4 +68,11 @@ public class PlayerGriefListener implements Listener {
      */
     @EventHandler
     public void onBlockFertilize(BlockFertilizeEvent e) { e.setCancelled(true); }
+
+    /**
+     * Prevents players from using buckets (placing/picking up liquids).
+     * @param e The event to be cancelled.
+     */
+    @EventHandler
+    public void onBucketUse(PlayerBucketEvent e) { e.setCancelled(true); }
 }
