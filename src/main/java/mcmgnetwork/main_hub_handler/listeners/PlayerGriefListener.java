@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockFertilizeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
@@ -59,4 +60,11 @@ public class PlayerGriefListener implements Listener {
      */
     @EventHandler
     public void onHarvestBlock(PlayerHarvestBlockEvent e) { e.setCancelled(true); }
+
+    /**
+     * Prevents players from fertilizing blocks (like using bone meal to grow plants).
+     * @param e The event to be cancelled.
+     */
+    @EventHandler
+    public void onBlockFertilize(BlockFertilizeEvent e) { e.setCancelled(true); }
 }
