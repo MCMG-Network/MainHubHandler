@@ -5,10 +5,7 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.block.BlockBreakEvent;
-import org.bukkit.event.block.BlockFertilizeEvent;
-import org.bukkit.event.block.BlockPlaceEvent;
-import org.bukkit.event.block.SignChangeEvent;
+import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
 
@@ -96,4 +93,18 @@ public class PlayerGriefListener implements Listener {
      */
     @EventHandler
     public void onSignChange(SignChangeEvent e) { e.setCancelled(true); }
+
+    /**
+     * Prevents TNT from being primed/ignited.
+     * @param e The event to be cancelled
+     */
+    @EventHandler
+    public void onTNTPrime(TNTPrimeEvent e) { e.setCancelled(true); }
+
+    /**
+     * Prevents blocks (TNT, Respawn Anchor, etc.) from exploding.
+     * @param e The event to be cancelled
+     */
+    @EventHandler
+    public void onBlockExplode(BlockExplodeEvent e) { e.setCancelled(true); }
 }
