@@ -10,7 +10,7 @@ import org.bukkit.potion.PotionEffectType;
 public class VoidLevitationHandler implements Listener
 {
 
-    public static final int voidHeight = 3;
+    public static final int voidHeight = 0;
     public static final int levitationDuration = 20;
     public static final int levitationAmplifier = 22;
 
