@@ -1,7 +1,7 @@
 package mcmgnetwork.main_hub_handler;
 
 import io.papermc.paper.event.player.PlayerOpenSignEvent;
-import org.bukkit.ChatColor;
+import org.bukkit.*;
 import org.bukkit.block.data.type.TrapDoor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -21,6 +21,33 @@ import org.bukkit.event.player.*;
  *  <p>Date Created: 5/4/24
  */
 public class PlayerGriefPrevention implements Listener {
+
+    /**
+     * Updates the main hub server's world game rules to prevent/mitigate world change and griefing.
+     */
+    public static void setGameRules()
+    {
+        try
+        {
+            // Retrieve and store the main hub server's world
+            World world = Bukkit.getWorld("world");
+
+            // Set game rules
+            world.setGameRule(GameRule.DISABLE_RAIDS, false);
+            world.setGameRule(GameRule.DO_FIRE_TICK, false);
+            world.setGameRule(GameRule.DO_MOB_SPAWNING, false);
+            world.setGameRule(GameRule.DO_INSOMNIA, false);
+            world.setGameRule(GameRule.DO_PATROL_SPAWNING, false);
+            world.setGameRule(GameRule.DO_TRADER_SPAWNING, false);
+            world.setGameRule(GameRule.DO_VINES_SPREAD, false);
+            world.setGameRule(GameRule.DO_WARDEN_SPAWNING, false);
+            world.setGameRule(GameRule.MOB_GRIEFING, false);
+            world.setGameRule(GameRule.PROJECTILES_CAN_BREAK_BLOCKS, false);
+            world.setGameRule(GameRule.RANDOM_TICK_SPEED, 0);
+
+        } catch (NullPointerException ex)
+        { Bukkit.getLogger().severe("ERROR: Could not update main hub game rules because no world file was found!"); }
+    }
 
     /**
      * Prevents players from manipulating armor stands.
