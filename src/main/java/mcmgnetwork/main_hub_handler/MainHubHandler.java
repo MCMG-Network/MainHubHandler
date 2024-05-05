@@ -1,5 +1,6 @@
 package mcmgnetwork.main_hub_handler;
 
+import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class MainHubHandler extends JavaPlugin {
@@ -8,12 +9,13 @@ public final class MainHubHandler extends JavaPlugin {
     public void onEnable()
     {
         // Register event listeners/handlers
-        getServer().getPluginManager().registerEvents(new PlayerGriefPrevention(), this);
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new PlayerGriefPrevention(), this);
+        pluginManager.registerEvents(new VoidLevitationHandler(), this);
 
         // Set world game rules/attributes
         PlayerGriefPrevention.setGameRules();
         HubProperties.setGameRules();
-
     }
 
     @Override
