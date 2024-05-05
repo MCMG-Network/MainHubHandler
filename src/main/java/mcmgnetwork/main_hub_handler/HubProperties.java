@@ -8,10 +8,10 @@ import org.bukkit.World;
 public class HubProperties
 {
     // Main hub world spawn settings
-    private static final int worldSpawnX = 7;
-    private static final int worldSpawnY = 21;
-    private static final int worldSpawnZ = 22;
-    private static final float worldSpawnViewAngle = -45;
+    public static final int worldSpawnX = 7;
+    public static final int worldSpawnY = 21;
+    public static final int worldSpawnZ = 22;
+    public static final float worldSpawnViewAngle = -45;
 
     /**
      * Sets the main hub server's game rules and properties to the preferred state.
