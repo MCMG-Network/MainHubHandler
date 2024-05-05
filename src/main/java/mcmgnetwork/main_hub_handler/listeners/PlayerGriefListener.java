@@ -1,5 +1,6 @@
 package mcmgnetwork.main_hub_handler.listeners;
 
+import io.papermc.paper.event.player.PlayerOpenSignEvent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -7,6 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockFertilizeEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
 
@@ -81,4 +83,17 @@ public class PlayerGriefListener implements Listener {
     @EventHandler
     public void onBucketFill(PlayerBucketFillEvent e) { e.setCancelled(true); }
 
+    /**
+     * Prevents players from opening signs to edit them.
+     * @param e The event to be cancelled
+     */
+    @EventHandler
+    public void onSignOpen(PlayerOpenSignEvent e) { e.setCancelled(true); }
+
+    /**
+     * Prevents signs from being changed.
+     * @param e The event to be cancelled
+     */
+    @EventHandler
+    public void onSignChange(SignChangeEvent e) { e.setCancelled(true); }
 }
