@@ -10,6 +10,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.EntityChangeBlockEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.player.*;
 
 /**
@@ -110,6 +111,9 @@ public class PlayerGriefListener implements Listener {
      */
     @EventHandler
     public void onBlockExplode(BlockExplodeEvent e) { e.setCancelled(true); }
+
+    @EventHandler
+    public void onEntityExplode(EntityExplodeEvent e) { e.setCancelled(true); }
 
     /**
      * Prevents entities, notable endermen, from changing blocks.
