@@ -8,6 +8,7 @@ import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerArmorStandManipulateEvent;
+import org.bukkit.event.player.PlayerHarvestBlockEvent;
 
 /**
  * Description: <p>
@@ -51,4 +52,11 @@ public class PlayerGriefListener implements Listener {
      */
     @EventHandler
     public void onBlockPlace(BlockPlaceEvent e) { e.setCancelled(true); }
+
+    /**
+     * Prevents any blocks, notably plants, from being harvested.
+     * @param e The event to be cancelled
+     */
+    @EventHandler
+    public void onHarvestBlock(PlayerHarvestBlockEvent e) { e.setCancelled(true); }
 }
