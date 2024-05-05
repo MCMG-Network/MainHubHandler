@@ -13,7 +13,6 @@ public class VoidLevitationHandler implements Listener
     public static final int voidHeight = 3;
     public static final int levitationDuration = 20;
     public static final int levitationAmplifier = 22;
-    public static final boolean showEffectParticles = false;
 
     /**
      * Gives any player below the defined void height the levitation effect.
@@ -24,6 +23,6 @@ public class VoidLevitationHandler implements Listener
     {
         Player player = e.getPlayer();
         if (e.getTo().getY() < voidHeight)
-            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, levitationDuration, levitationAmplifier, showEffectParticles));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.LEVITATION, levitationDuration, levitationAmplifier));
     }
 }
