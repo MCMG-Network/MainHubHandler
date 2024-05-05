@@ -9,6 +9,11 @@ public final class MainHubHandler extends JavaPlugin {
     {
         // Register event listeners/handlers
         getServer().getPluginManager().registerEvents(new PlayerGriefPrevention(), this);
+
+        // Set world game rules/attributes
+        PlayerGriefPrevention.setGameRules();
+        HubProperties.setGameRules();
+
     }
 
     @Override
