@@ -19,7 +19,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 public class LobbySwitchRequestHandler implements Listener
 {
     // Lobby transfer button locations
-    private final static Location KOTHButtonLoc = new Location(Bukkit.getWorld("world"), 40, 19, 4);
+    private final static Location KOTHButtonLoc = new Location(Bukkit.getWorld("world"), 40, 19, 14);
     private final static Location MMButtonLoc1 = new Location(Bukkit.getWorld("world"), 32, 21, 64);
     private final static Location MMButtonLoc2 = new Location(Bukkit.getWorld("world"), 30, 21, 64);
 
