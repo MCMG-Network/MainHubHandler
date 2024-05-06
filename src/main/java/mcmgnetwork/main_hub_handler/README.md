@@ -9,10 +9,6 @@ Copyright:
 
 # Project Description
 
-## Design/Implementation Decisions
-
-## Features
-
 ## Problems/Quirks
 
 ### References:

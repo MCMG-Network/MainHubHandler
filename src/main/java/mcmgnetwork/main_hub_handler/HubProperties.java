@@ -5,6 +5,13 @@ import org.bukkit.Difficulty;
 import org.bukkit.GameRule;
 import org.bukkit.World;
 
+/**
+ * Description: <p>
+ *  Sets the main hub server's game rules and properties to the preferred state
+ *
+ *  <p>Author(s): Miles Bovero
+ *  <p>Date Created: 5/4/24
+ */
 public class HubProperties
 {
     // Main hub world spawn settings
