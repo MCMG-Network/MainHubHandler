@@ -1,4 +1,4 @@
-package mcmgnetwork.main_hub_handler.Listeners;
+package mcmgnetwork.main_hub_handler.handlers;
 
 import io.papermc.paper.event.player.PlayerOpenSignEvent;
 import org.bukkit.*;
@@ -20,7 +20,7 @@ import org.bukkit.event.player.*;
  *  <p>Author(s): Miles Bovero
  *  <p>Date Created: 5/4/24
  */
-public class PlayerGriefPrevention implements Listener {
+public class PlayerGriefPreventionHandler implements Listener {
 
     /**
      * Updates the main hub server's world game rules to prevent/mitigate world change and griefing.
@@ -157,10 +157,12 @@ public class PlayerGriefPrevention implements Listener {
      * @param e The event to be analyzed and possibly canceled.
      */
     @EventHandler
-    public void onDoorInteract(PlayerInteractEvent e)
+    public void onTrapDoorInteract(PlayerInteractEvent e)
     {
+        // Ensure the event was attached to a block
         if (!e.hasBlock()) return;
         if (e.getClickedBlock().getBlockData() instanceof TrapDoor)
             e.setCancelled(true);
     }
+
 }
