@@ -1,4 +1,4 @@
-package mcmgnetwork.main_hub_handler.Listeners;
+package mcmgnetwork.main_hub_handler.handlers;
 
 import mcmgnetwork.main_hub_handler.HubProperties;
 import org.bukkit.Bukkit;
@@ -10,12 +10,28 @@ import org.bukkit.event.player.PlayerMoveEvent;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 
+/**
+ * Description: <p>
+ *  This class listens for any player events that where the user is no longer in bounds
+ *
+ *  <p>Author(s): Miles Bovero, Vee Sutton
+ *  <p>Date Created: 5/4/24
+ */
 public class VoidHandler implements Listener
 {
 
+    // Void levitation settings
     public static final int voidHeight = 0;
     public static final int levitationDuration = 20;
     public static final int levitationAmplifier = 22;
+
+    // Hub boundary settings
+    public static final double posXBound = 100;
+    public static final double negXBound = -50;
+    public static final double YBound = -30;
+    public static final double posZBound = 125;
+    public static final double negZBound = -50;
+
 
     /**
      * Gives any player below the defined void height the levitation effect.
@@ -37,11 +53,16 @@ public class VoidHandler implements Listener
             Location spawn = new Location(Bukkit.getWorld("world"), HubProperties.worldSpawnX, HubProperties.worldSpawnY, HubProperties.worldSpawnZ);
 
             // If players fall too far into the void, tp them back to the world spawn
-            // If players venture too far in the X direction, tp them back to the world spawn
-            // If players venture too far in the Z direction, tp them back to the world spawn
-            if (playerLocation.getY() < -64 || Math.abs(playerLocation.getZ()) > 50 || Math.abs(playerLocation.getX()) > 50)
+            if (playerLocation.getY() < YBound)
                 player.teleport(spawn);
 
+            // If players venture too far in the X direction, tp them back to the world spawn
+            if (playerLocation.getX() > posXBound || playerLocation.getX() < negXBound)
+                player.teleport(spawn);
+
+            // If players venture too far in the Z direction, tp them back to the world spawn
+            if (playerLocation.getZ() > posZBound || playerLocation.getZ() < negZBound)
+                player.teleport(spawn);
 
         }catch (NullPointerException ex)
         { Bukkit.getLogger().severe("ERROR: Could not update main hub game rules because no world file was found!"); }
