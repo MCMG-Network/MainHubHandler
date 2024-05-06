@@ -22,6 +22,9 @@ public final class MainHubHandler extends JavaPlugin {
     @Override
     public void onEnable()
     {
+        // Register an outgoing plugin channel
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
         // Register event listeners/handlers
         PluginManager pluginManager = getServer().getPluginManager();
         LobbySwitcher.SetJavaPlugin(this);
