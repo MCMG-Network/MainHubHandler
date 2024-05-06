@@ -1,4 +1,4 @@
-package mcmgnetwork.main_hub_handler;
+package mcmgnetwork.main_hub_handler.Listeners;
 
 import io.papermc.paper.event.player.PlayerOpenSignEvent;
 import org.bukkit.*;
