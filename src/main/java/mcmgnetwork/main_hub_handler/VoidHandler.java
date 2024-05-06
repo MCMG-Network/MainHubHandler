@@ -34,11 +34,18 @@ public class VoidHandler implements Listener
             // Initialize world spawn location
             Location spawn = new Location(Bukkit.getWorld("world"), HubProperties.worldSpawnX, HubProperties.worldSpawnY, HubProperties.worldSpawnZ);
 
+
             // If players fall too far into the void, tp them back to the world spawn
 
             // If players venture too far in the X direction, tp them back to the world spawn
 
             // If players venture too far in the Z direction, tp them back to the world spawn
+
+            Location playerLocation = player.getLocation();
+            if (playerLocation.getY() < -64 || Math.abs(playerLocation.getZ()) > 2000 || Math.abs(playerLocation.getX()) > 2000) {
+                player.teleport(spawn);
+            }
+
         }catch (NullPointerException ex)
         { Bukkit.getLogger().severe("ERROR: Could not update main hub game rules because no world file was found!"); }
     }
