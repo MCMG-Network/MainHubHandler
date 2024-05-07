@@ -1,8 +1,8 @@
 package mcmgnetwork.main_hub_handler;
 
-import mcmgnetwork.main_hub_handler.handlers.LobbySwitchRequestHandler;
-import mcmgnetwork.main_hub_handler.handlers.PlayerGriefPreventionHandler;
-import mcmgnetwork.main_hub_handler.handlers.VoidHandler;
+import mcmgnetwork.main_hub_handler.listeners.LobbyTransferRequestHandler;
+import mcmgnetwork.main_hub_handler.listeners.PlayerGriefPreventionHandler;
+import mcmgnetwork.main_hub_handler.listeners.VoidHandler;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,6 +16,8 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public final class MainHubHandler extends JavaPlugin {
 
+    public static final String transferChannelName = "BungeeCord";
+
     /**
      * Registers event handlers and manages game attributes
      */
@@ -23,12 +25,12 @@ public final class MainHubHandler extends JavaPlugin {
     public void onEnable()
     {
         // Register an outgoing plugin channel
-        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        getServer().getMessenger().registerOutgoingPluginChannel(this, transferChannelName);
 
         // Register event listeners/handlers
         PluginManager pluginManager = getServer().getPluginManager();
-        LobbySwitcher.SetJavaPlugin(this);
-        pluginManager.registerEvents(new LobbySwitchRequestHandler(), this);
+        LobbyTransferHandler.SetJavaPlugin(this);
+        pluginManager.registerEvents(new LobbyTransferRequestHandler(), this);
         pluginManager.registerEvents(new PlayerGriefPreventionHandler(), this);
         pluginManager.registerEvents(new VoidHandler(), this);
 

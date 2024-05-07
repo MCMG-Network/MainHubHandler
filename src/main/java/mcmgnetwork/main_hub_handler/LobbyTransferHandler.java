@@ -7,6 +7,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import static mcmgnetwork.main_hub_handler.MainHubHandler.transferChannelName;
+
 /**
  * Description: <p>
  *  Utilizes plugin messaging to send requests to the proxy server to transfer players to other servers.
@@ -18,7 +20,6 @@ public class LobbyTransferHandler implements Listener
 {
 
     private static final String transferMessageType = "ConnectOther";
-    private static final String transferChannelName = "BungeeCord";
     private static JavaPlugin plugin;
 
     /**
