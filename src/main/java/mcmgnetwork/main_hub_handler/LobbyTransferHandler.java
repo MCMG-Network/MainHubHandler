@@ -35,7 +35,7 @@ public class LobbyTransferHandler implements Listener
      */
     public static void Transfer (String serverName, Player player)
     {
-        // Prepare plugin message: Message Type = "ConnectOther"; Arguments = "playerName", "serverName"
+        // Prepare plugin message: Message Type = "ConnectOther"; Arguments = "[playerName]", "[serverName]"
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
         out.writeUTF(transferMessageType);
         out.writeUTF(player.getName());
