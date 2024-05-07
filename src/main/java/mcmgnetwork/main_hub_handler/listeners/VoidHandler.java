@@ -1,4 +1,4 @@
-package mcmgnetwork.main_hub_handler.handlers;
+package mcmgnetwork.main_hub_handler.listeners;
 import mcmgnetwork.main_hub_handler.HubProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
