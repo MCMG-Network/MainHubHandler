@@ -3,7 +3,7 @@ Authors:    Miles Bovero, Lawrence Ponce, .....
 GitHub ID:  mbovero & CaptainButter8 
 Repo:       https://github.com/MCMG-Network/MainHubHandler
 Start Date: 5-May-2024   
-Project:    main_hub_handler
+Project:    MainHubHandler
 Copyright:  
 ```
 
