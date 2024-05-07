@@ -27,9 +27,11 @@ public final class MainHubHandler extends JavaPlugin {
         // Register an outgoing plugin channel
         getServer().getMessenger().registerOutgoingPluginChannel(this, transferChannelName);
 
+        // Inject plugin references
+        LobbyTransferHandler.SetJavaPlugin(this);
+
         // Register event listeners/handlers
         PluginManager pluginManager = getServer().getPluginManager();
-        LobbyTransferHandler.SetJavaPlugin(this);
         pluginManager.registerEvents(new LobbyTransferRequestHandler(), this);
         pluginManager.registerEvents(new PlayerGriefPreventionHandler(), this);
         pluginManager.registerEvents(new VoidHandler(), this);
