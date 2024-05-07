@@ -12,7 +12,7 @@ import org.bukkit.World;
  *  <p>Author(s): Miles Bovero
  *  <p>Date Created: 5/4/24
  */
-public class HubProperties
+public class HubPropertiesHandler
 {
     // Main hub world spawn settings
     public static final int worldSpawnX = 7;

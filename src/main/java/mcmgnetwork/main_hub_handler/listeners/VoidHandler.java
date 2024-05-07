@@ -1,5 +1,5 @@
 package mcmgnetwork.main_hub_handler.listeners;
-import mcmgnetwork.main_hub_handler.HubProperties;
+import mcmgnetwork.main_hub_handler.HubPropertiesHandler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -49,7 +49,7 @@ public class VoidHandler implements Listener
         try
         {
             // Initialize world spawn location
-            Location spawn = new Location(Bukkit.getWorld("world"), HubProperties.worldSpawnX, HubProperties.worldSpawnY, HubProperties.worldSpawnZ);
+            Location spawn = new Location(Bukkit.getWorld("world"), HubPropertiesHandler.worldSpawnX, HubPropertiesHandler.worldSpawnY, HubPropertiesHandler.worldSpawnZ);
 
             // If players fall too far into the void, tp them back to the world spawn
             if (playerLocation.getY() < YBound)
