@@ -7,7 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import static mcmgnetwork.main_hub_handler.MainHubHandler.transferChannelName;
+import static mcmgnetwork.main_hub_handler.MainHubHandler.TRANSFER_CHANNEL_NAME;
 
 /**
  * Description: <p>
@@ -42,6 +42,6 @@ public class LobbyTransferHandler implements Listener
         out.writeUTF(serverName);
 
         // Send the Player to the respective lobby
-        plugin.getServer().sendPluginMessage(plugin, transferChannelName, out.toByteArray());
+        plugin.getServer().sendPluginMessage(plugin, TRANSFER_CHANNEL_NAME, out.toByteArray());
     }
 }

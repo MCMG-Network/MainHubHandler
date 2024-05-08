@@ -16,7 +16,7 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public final class MainHubHandler extends JavaPlugin {
 
-    public static final String transferChannelName = "BungeeCord";
+    public static final String TRANSFER_CHANNEL_NAME = "BungeeCord";
 
     /**
      * Registers event handlers and manages game attributes
@@ -25,7 +25,7 @@ public final class MainHubHandler extends JavaPlugin {
     public void onEnable()
     {
         // Register an outgoing plugin channel
-        getServer().getMessenger().registerOutgoingPluginChannel(this, transferChannelName);
+        getServer().getMessenger().registerOutgoingPluginChannel(this, TRANSFER_CHANNEL_NAME);
 
         // Inject plugin references
         LobbyTransferHandler.SetJavaPlugin(this);
