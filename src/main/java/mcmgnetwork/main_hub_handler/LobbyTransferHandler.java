@@ -84,11 +84,16 @@ public class LobbyTransferHandler implements PluginMessageListener
         {
             boolean isActive = in.readBoolean();
             String playerName = in.readUTF();
+            player = plugin.getServer().getPlayer(playerName);
+
+            //TODO improve quick fix?
+            // Only handle the message if the specified player is in this server
+            if (!plugin.getServer().getOnlinePlayers().contains(player)) return;
+
 
             // If there is no active server to transfer to; alert the player
             if (!isActive)
             {
-                player = plugin.getServer().getPlayer(playerName);
                 player.sendMessage(ChatColor.YELLOW +
                         "No server of this type is currently active, but we'll start one up for you! " +
                         "\nPlease attempt reconnecting soon...");
