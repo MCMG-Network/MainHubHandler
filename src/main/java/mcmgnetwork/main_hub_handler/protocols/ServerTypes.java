@@ -6,7 +6,7 @@ package mcmgnetwork.main_hub_handler.protocols;
  *  plugin and used for plugin messaging.
  *
  *  <p>Author(s): Miles Bovero
- *  <p>Date Created: 5/6/24
+ *  <p>Date Created: 5/7/24
  */
 public class ServerTypes
 {
