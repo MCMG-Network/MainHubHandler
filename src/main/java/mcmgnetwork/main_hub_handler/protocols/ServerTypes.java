@@ -10,6 +10,6 @@ package mcmgnetwork.main_hub_handler.protocols;
  */
 public class ServerTypes
 {
-    public static final String KOTH = "KOTH";
-    public static final String MM = "MM";
+    public static final String KOTH_LOBBY = "KOTH_lobby";
+    public static final String MM_LOBBY = "MM_lobby";
 }
