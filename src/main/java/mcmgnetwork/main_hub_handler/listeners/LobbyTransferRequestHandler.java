@@ -58,9 +58,9 @@ public class LobbyTransferRequestHandler implements Listener
     private static String getServerType(Location location)
     {
         if (location.equals(KOTHButtonLoc))
-            return ServerTypes.KOTH;
+            return ServerTypes.KOTH_LOBBY;
         else if (location.equals(MMButtonLoc1) || location.equals(MMButtonLoc2))
-            return ServerTypes.MM;
+            return ServerTypes.MM_LOBBY;
 
         return null;
     }
