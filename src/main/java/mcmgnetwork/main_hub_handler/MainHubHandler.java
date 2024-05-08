@@ -28,6 +28,7 @@ public final class MainHubHandler extends JavaPlugin {
         // Register incoming plugin channels
         getServer().getMessenger().registerIncomingPluginChannel(this, ChannelNames.MCMG, new LobbyTransferHandler(this));
         // Register outgoing plugin channels
+        getServer().getMessenger().registerOutgoingPluginChannel(this, ChannelNames.MCMG);
         getServer().getMessenger().registerOutgoingPluginChannel(this, ChannelNames.PROXY);
 
         // Register event listeners/handlers
