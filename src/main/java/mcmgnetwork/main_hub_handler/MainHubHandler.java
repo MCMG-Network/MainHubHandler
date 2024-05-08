@@ -25,11 +25,10 @@ public final class MainHubHandler extends JavaPlugin {
     @Override
     public void onEnable()
     {
-        // Register an outgoing plugin channel
+        // Register incoming plugin channels
+        getServer().getMessenger().registerIncomingPluginChannel(this, ChannelNames.MCMG, new LobbyTransferHandler(this));
+        // Register outgoing plugin channels
         getServer().getMessenger().registerOutgoingPluginChannel(this, ChannelNames.PROXY);
-
-        // Inject plugin references
-        LobbyTransferHandler.setJavaPlugin(this);
 
         // Register event listeners/handlers
         PluginManager pluginManager = getServer().getPluginManager();
