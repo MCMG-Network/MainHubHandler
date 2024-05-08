@@ -1,6 +1,6 @@
 package mcmgnetwork.main_hub_handler.listeners;
 import mcmgnetwork.main_hub_handler.LobbyTransferHandler;
-import mcmgnetwork.main_hub_handler.ServerNames;
+import mcmgnetwork.main_hub_handler.protocols.ServerTypes;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -13,7 +13,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 /**
  * Description: <p>
  *  Handles/filters main hub block interactions and transfers players interacting with transfer buttons to the
- *  corresponding server lobby using the LobbySwitcher class.
+ *  corresponding server lobby using the LobbyTransferHandler class.
  *
  *  <p>Author(s): Miles Bovero, Vee Sutton, Lawrence Ponce
  *  <p>Date Created: 5/5/24
@@ -41,25 +41,26 @@ public class LobbyTransferRequestHandler implements Listener
         if (e.getAction() == Action.RIGHT_CLICK_BLOCK && clickedBlock.toString().toLowerCase().contains("button"))
         {
             Player player = e.getPlayer();
-            // Retrieve server name based on button location
-            String serverName = getServerName(clickedBlock.getLocation());
+            // Retrieve server type based on button location
+            String serverName = getServerType(clickedBlock.getLocation());
 
-            // If a lobby transferring button was pressed, transfer the player to that lobby
+            // If a lobby transferring button was pressed, attempt to transfer the player to that lobby
             if (serverName != null)
-                LobbyTransferHandler.Transfer(serverName, player);
+                LobbyTransferHandler.transfer(serverName, player);
         }
     }
 
     /**
-     * @param location The Location in the Main Hub server's world
-     * @return The name of the lobby server corresponding to the provided Location; returns null if no corresponding
-     * server name was found
+     * @param location A Location in the Main Hub server's world where an interactable block resides
+     * @return The name of the lobby server type corresponding to the provided Location; returns null if no
+     * corresponding server name was found
      */
-    private static String getServerName(Location location) {
+    private static String getServerType(Location location)
+    {
         if (location.equals(KOTHButtonLoc))
-            return ServerNames.KOTH_Lobby;
+            return ServerTypes.KOTH;
         else if (location.equals(MMButtonLoc1) || location.equals(MMButtonLoc2))
-            return ServerNames.MM_Lobby;
+            return ServerTypes.MM;
 
         return null;
     }
