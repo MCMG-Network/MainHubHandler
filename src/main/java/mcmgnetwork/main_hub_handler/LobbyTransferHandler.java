@@ -86,10 +86,8 @@ public class LobbyTransferHandler implements PluginMessageListener
             String playerName = in.readUTF();
             player = plugin.getServer().getPlayer(playerName);
 
-            //TODO improve quick fix?
-            // Only handle the message if the specified player is in this server
+            // Only handle the message if the specified player is in this server (prevents duplicate handling)
             if (!plugin.getServer().getOnlinePlayers().contains(player)) return;
-
 
             // If there is no active server to transfer to; alert the player
             if (!isActive)
@@ -101,6 +99,7 @@ public class LobbyTransferHandler implements PluginMessageListener
             }
 
             // Otherwise, there is an active server, so transfer the player there
+            player.sendMessage(ChatColor.GREEN + "Transferring you to another server...");
             String serverName = in.readUTF();
             proxyTransfer(serverName, playerName);
         }
