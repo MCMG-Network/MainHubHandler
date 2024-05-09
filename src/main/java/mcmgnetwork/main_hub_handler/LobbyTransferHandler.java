@@ -8,7 +8,6 @@ import mcmgnetwork.main_hub_handler.protocols.ChannelNames;
 import mcmgnetwork.main_hub_handler.protocols.MessageTypes;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.plugin.messaging.PluginMessageListener;
 import org.jetbrains.annotations.NotNull;
 
@@ -22,15 +21,6 @@ import org.jetbrains.annotations.NotNull;
  */
 public class LobbyTransferHandler implements PluginMessageListener
 {
-
-    private static JavaPlugin plugin;
-
-    /**
-     * Creates a new LobbyTransferHandler instance that handles the transfer of players across network servers.
-     * @param plugin The MainHubHandler plugin
-     */
-    public LobbyTransferHandler(JavaPlugin plugin)
-    { LobbyTransferHandler.plugin = plugin; }
 
     /**
      * Attempts to send the specified player to an instance of the specified server type.
@@ -49,7 +39,7 @@ public class LobbyTransferHandler implements PluginMessageListener
         out.writeUTF(serverType);
 
         // Request the status of the provided server type from the proxy server
-        plugin.getServer().sendPluginMessage(plugin, ChannelNames.MCMG, out.toByteArray());
+        MainHubHandler.getPlugin().getServer().sendPluginMessage(MainHubHandler.getPlugin(), ChannelNames.MCMG, out.toByteArray());
 
         // !!! The onPluginMessageReceived method handles the rest of the functionality described in the method header.
     }
@@ -84,10 +74,10 @@ public class LobbyTransferHandler implements PluginMessageListener
         {
             boolean isActive = in.readBoolean();
             String playerName = in.readUTF();
-            player = plugin.getServer().getPlayer(playerName);
+            player = MainHubHandler.getPlugin().getServer().getPlayer(playerName);
 
             // Only handle the message if the specified player is in this server (prevents duplicate handling)
-            if (!plugin.getServer().getOnlinePlayers().contains(player)) return;
+            if (!MainHubHandler.getPlugin().getServer().getOnlinePlayers().contains(player)) return;
 
             // If there is no active server to transfer to; alert the player
             if (!isActive)
@@ -120,6 +110,6 @@ public class LobbyTransferHandler implements PluginMessageListener
         out.writeUTF(serverName);
 
         // Send the Player to the respective lobby
-        plugin.getServer().sendPluginMessage(plugin, ChannelNames.PROXY, out.toByteArray());
+        MainHubHandler.getPlugin().getServer().sendPluginMessage(MainHubHandler.getPlugin(), ChannelNames.PROXY, out.toByteArray());
     }
 }

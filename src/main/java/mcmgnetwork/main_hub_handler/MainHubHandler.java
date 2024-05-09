@@ -1,5 +1,6 @@
 package mcmgnetwork.main_hub_handler;
 
+import lombok.Getter;
 import mcmgnetwork.main_hub_handler.listeners.LobbyTransferRequestHandler;
 import mcmgnetwork.main_hub_handler.listeners.PlayerGriefPreventionHandler;
 import mcmgnetwork.main_hub_handler.listeners.VoidHandler;
@@ -19,14 +20,19 @@ import org.bukkit.plugin.java.JavaPlugin;
  */
 public final class MainHubHandler extends JavaPlugin {
 
+    @Getter
+    private static MainHubHandler plugin;
+
     /**
      * Registers event handlers and manages game attributes
      */
     @Override
     public void onEnable()
     {
+        plugin = this;
+
         // Register incoming plugin channels
-        getServer().getMessenger().registerIncomingPluginChannel(this, ChannelNames.MCMG, new LobbyTransferHandler(this));
+        getServer().getMessenger().registerIncomingPluginChannel(this, ChannelNames.MCMG, new LobbyTransferHandler());
         // Register outgoing plugin channels
         getServer().getMessenger().registerOutgoingPluginChannel(this, ChannelNames.MCMG);
         getServer().getMessenger().registerOutgoingPluginChannel(this, ChannelNames.PROXY);
