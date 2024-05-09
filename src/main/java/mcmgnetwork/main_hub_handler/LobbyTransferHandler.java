@@ -93,7 +93,7 @@ public class LobbyTransferHandler implements PluginMessageListener
             if (!isActive)
             {
                 player.sendMessage(ChatColor.YELLOW +
-                        "No server of this type is currently active, but we'll start one up for you! " +
+                        "[Warning] Could not find an available server to transfer you to. " +
                         "\nPlease attempt reconnecting soon...");
                 return;
             }
