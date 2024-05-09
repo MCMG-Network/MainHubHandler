@@ -44,7 +44,7 @@ public class LobbyTransferHandler implements PluginMessageListener
     {
         // Prepare plugin message bytes: MessageType, Argument1, Argument2
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
-        out.writeUTF(MessageTypes.SERVER_TRANSFER_REQUEST);
+        out.writeUTF(MessageTypes.LOBBY_TRANSFER_REQUEST);
         out.writeUTF(player.getName());
         out.writeUTF(serverType);
 
@@ -80,7 +80,7 @@ public class LobbyTransferHandler implements PluginMessageListener
         String subChannel = in.readUTF();
 
         // Only handle SERVER_TRANSFER_RESPONSE message types
-        if (subChannel.equals(MessageTypes.SERVER_TRANSFER_RESPONSE))
+        if (subChannel.equals(MessageTypes.LOBBY_TRANSFER_RESPONSE))
         {
             boolean isActive = in.readBoolean();
             String playerName = in.readUTF();
