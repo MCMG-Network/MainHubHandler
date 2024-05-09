@@ -20,16 +20,16 @@ public class VoidHandler implements Listener
 {
 
     // Void levitation settings
-    public static final int voidHeight = 0;
-    public static final int levitationDuration = 20;
-    public static final int levitationAmplifier = 22;
+    private static final int voidHeight = 0;
+    private static final int levitationDuration = 20;
+    private static final int levitationAmplifier = 22;
 
     // Hub boundary settings
-    public static final double posXBound = 100;
-    public static final double negXBound = -50;
-    public static final double YBound = -30;
-    public static final double posZBound = 125;
-    public static final double negZBound = -50;
+    private static final double posXBound = 100;
+    private static final double negXBound = -50;
+    private static final double YBound = -30;
+    private static final double posZBound = 125;
+    private static final double negZBound = -50;
 
 
     /**
