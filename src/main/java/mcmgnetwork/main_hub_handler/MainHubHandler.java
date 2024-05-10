@@ -46,6 +46,9 @@ public final class MainHubHandler extends JavaPlugin {
         // Set world game rules/attributes
         PlayerGriefPreventionHandler.setGameRules();
         HubPropertiesHandler.setGameRules();
+
+        // Announce successful startup
+        getLogger().info("The MainHubHandler plugin has successfully started!");
     }
 
     /**
