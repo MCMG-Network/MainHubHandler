@@ -80,6 +80,10 @@ public class LobbyTransferHandler implements PluginMessageListener
             // Only handle the message if the specified player is in this server (prevents duplicate handling)
             if (!MainHubHandler.getPlugin().getServer().getOnlinePlayers().contains(player)) return;
 
+            //TODO remove debug line
+            MainHubHandler.getPlugin().getLogger().info("Received plugin message: " + serverStatus + ", " + playerName +
+                    ", " + serverName);
+
             // If there is no active server to transfer to; alert the player
             switch (serverStatus) {
                 case ServerStatuses.FULL:
