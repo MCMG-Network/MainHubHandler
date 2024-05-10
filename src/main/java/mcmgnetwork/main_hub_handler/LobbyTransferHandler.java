@@ -73,9 +73,12 @@ public class LobbyTransferHandler implements PluginMessageListener
         // Only handle SERVER_TRANSFER_RESPONSE message types
         if (subChannel.equals(MessageTypes.LOBBY_TRANSFER_RESPONSE)) {
             String serverStatus = in.readUTF();
+            MainHubHandler.getPlugin().getLogger().info("read server status: " + serverStatus); //TODO remove
             String playerName = in.readUTF();
+            MainHubHandler.getPlugin().getLogger().info("read player name: " + playerName); //TODO remove
             player = MainHubHandler.getPlugin().getServer().getPlayer(playerName);
             String serverName = in.readUTF();
+            MainHubHandler.getPlugin().getLogger().info("read server name: " + serverName); //TODO remove
 
             // Only handle the message if the specified player is in this server (prevents duplicate handling)
             if (!MainHubHandler.getPlugin().getServer().getOnlinePlayers().contains(player)) return;
