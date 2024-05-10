@@ -6,6 +6,7 @@ import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
 import mcmgnetwork.main_hub_handler.protocols.ChannelNames;
 import mcmgnetwork.main_hub_handler.protocols.MessageTypes;
+import mcmgnetwork.main_hub_handler.protocols.ServerStatuses;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.messaging.PluginMessageListener;
@@ -70,28 +71,33 @@ public class LobbyTransferHandler implements PluginMessageListener
         String subChannel = in.readUTF();
 
         // Only handle SERVER_TRANSFER_RESPONSE message types
-        if (subChannel.equals(MessageTypes.LOBBY_TRANSFER_RESPONSE))
-        {
-            boolean isActive = in.readBoolean();
+        if (subChannel.equals(MessageTypes.LOBBY_TRANSFER_RESPONSE)) {
+            String serverStatus = in.readUTF();
             String playerName = in.readUTF();
             player = MainHubHandler.getPlugin().getServer().getPlayer(playerName);
+            String serverName = in.readUTF();
 
             // Only handle the message if the specified player is in this server (prevents duplicate handling)
             if (!MainHubHandler.getPlugin().getServer().getOnlinePlayers().contains(player)) return;
 
             // If there is no active server to transfer to; alert the player
-            if (!isActive)
-            {
-                player.sendMessage(ChatColor.YELLOW +
-                        "[Warning] No available server to transfer you to! " +
-                        "\nPlease attempt reconnecting soon...");
-                return;
+            switch (serverStatus) {
+                case ServerStatuses.FULL:
+                    player.sendMessage(ChatColor.YELLOW +
+                            "[Warning] Servers are full! " +
+                            "\nPlease attempt reconnecting soon...");
+                    break;
+                case ServerStatuses.INITIALIZING:
+                    player.sendMessage(ChatColor.YELLOW +
+                            "[Warning] No available server to transfer you to. We'll start a new one for you! " +
+                            "\nPlease attempt reconnecting soon...");
+                    break;
+                case ServerStatuses.TRANSFERABLE:
+                    // Otherwise, there is an active server, so transfer the player there
+                    player.sendMessage(ChatColor.GREEN + "Transferring you to another server...");
+                    proxyTransfer(serverName, playerName);
+                    break;
             }
-
-            // Otherwise, there is an active server, so transfer the player there
-            player.sendMessage(ChatColor.GREEN + "Transferring you to another server...");
-            String serverName = in.readUTF();
-            proxyTransfer(serverName, playerName);
         }
     }
 
@@ -110,6 +116,6 @@ public class LobbyTransferHandler implements PluginMessageListener
         out.writeUTF(serverName);
 
         // Send the Player to the respective lobby
-        MainHubHandler.getPlugin().getServer().sendPluginMessage(MainHubHandler.getPlugin(), ChannelNames.PROXY, out.toByteArray());
+        MainHubHandler.getPlugin().getServer().sendPluginMessage(MainHubHandler.getPlugin(), ChannelNames.BUNGEE_CORD, out.toByteArray());
     }
 }
