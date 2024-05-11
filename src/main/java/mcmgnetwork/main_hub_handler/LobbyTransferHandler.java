@@ -92,6 +92,9 @@ public class LobbyTransferHandler implements PluginMessageListener
                             "[Warning] No servers were available, so we'll start a new one for you! " +
                             "\nPlease attempt reconnecting soon...");
                     break;
+                case ServerStatuses.FAILED_INITIALIZE:
+                    player.sendMessage(ChatColor.RED +
+                            "[ERROR] Critical failures occurred while attempting to start a new server...");
                 case ServerStatuses.TRANSFERABLE:
                     // Otherwise, there is an active server, so transfer the player there
                     player.sendMessage(ChatColor.GREEN + "Transferring you to another server...");
