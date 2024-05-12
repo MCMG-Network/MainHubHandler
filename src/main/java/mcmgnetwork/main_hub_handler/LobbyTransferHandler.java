@@ -87,9 +87,13 @@ public class LobbyTransferHandler implements PluginMessageListener
                             "[Warning] Servers are full! " +
                             "\nPlease attempt reconnecting soon...");
                     break;
+                case ServerStatuses.BEGAN_INITIALIZATION:
+                    player.sendMessage(ChatColor.YELLOW +
+                            "[Warning] No servers were available, so we started a new one for you! " +
+                            "\nPlease attempt reconnecting soon...");
                 case ServerStatuses.INITIALIZING:
                     player.sendMessage(ChatColor.YELLOW +
-                            "[Warning] No servers were available, so we'll start a new one for you! " +
+                            "The requested server is currently booting up!" +
                             "\nPlease attempt reconnecting soon...");
                     break;
                 case ServerStatuses.FAILED_INITIALIZATION:
