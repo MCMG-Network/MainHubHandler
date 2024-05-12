@@ -91,6 +91,7 @@ public class LobbyTransferHandler implements PluginMessageListener
                     player.sendMessage(ChatColor.YELLOW +
                             "[Warning] No servers were available, so we started a new one for you! " +
                             "\nPlease attempt reconnecting soon...");
+                    break;
                 case ServerStatuses.INITIALIZING:
                     player.sendMessage(ChatColor.YELLOW +
                             "The requested server is currently booting up!" +
