@@ -3,6 +3,7 @@ package mcmgnetwork.main_hub_handler;
 import lombok.Getter;
 import mcmgnetwork.main_hub_handler.listeners.LobbyTransferRequestHandler;
 import mcmgnetwork.main_hub_handler.listeners.PlayerGriefPreventionHandler;
+import mcmgnetwork.main_hub_handler.listeners.PluginMessageHandler;
 import mcmgnetwork.main_hub_handler.listeners.VoidHandler;
 import mcmgnetwork.main_hub_handler.protocols.ChannelNames;
 import org.bukkit.plugin.PluginManager;
@@ -32,7 +33,7 @@ public final class MainHubHandler extends JavaPlugin {
         plugin = this;
 
         // Register incoming plugin channels
-        getServer().getMessenger().registerIncomingPluginChannel(this, ChannelNames.MCMG, new LobbyTransferHandler());
+        getServer().getMessenger().registerIncomingPluginChannel(this, ChannelNames.MCMG, new PluginMessageHandler());
         // Register outgoing plugin channels
         getServer().getMessenger().registerOutgoingPluginChannel(this, ChannelNames.MCMG);
         getServer().getMessenger().registerOutgoingPluginChannel(this, ChannelNames.BUNGEE_CORD);
