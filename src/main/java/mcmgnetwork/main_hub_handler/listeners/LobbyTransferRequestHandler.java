@@ -46,7 +46,7 @@ public class LobbyTransferRequestHandler implements Listener
 
             // If a lobby transferring button was pressed, attempt to transfer the player to that lobby
             if (serverName != null)
-                LobbyTransferHandler.transfer(serverName, player);
+                LobbyTransferHandler.transferPlayerToServer(serverName, player);
         }
     }
 
