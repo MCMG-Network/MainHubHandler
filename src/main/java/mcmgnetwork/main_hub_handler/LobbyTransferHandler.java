@@ -9,18 +9,16 @@ import mcmgnetwork.main_hub_handler.protocols.MessageTypes;
 import mcmgnetwork.main_hub_handler.protocols.ServerStatuses;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.messaging.PluginMessageListener;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * Description: <p>
  *  Utilizes plugin messaging to send requests to the proxy server to transfer players to other servers. Plugin
- *  messaging is also utilized to inform players of inactive, initializing, and online servers.
+ *  messaging is also utilized to inform players of the requested server's status.
  *
  *  <p>Author(s): Miles Bovero, Vee Sutton, Lawrence Ponce
  *  <p>Date Created: 5/5/24
  */
-public class LobbyTransferHandler implements PluginMessageListener
+public class LobbyTransferHandler
 {
 
     /**
@@ -31,7 +29,7 @@ public class LobbyTransferHandler implements PluginMessageListener
      * @param serverType The name of the server to transfer the player to
      * @param player The player to be transferred
      */
-    public static void transfer(String serverType, Player player)
+    public static void transferPlayerToServer(String serverType, Player player)
     {
         // Prepare plugin message bytes: MessageType, Argument1, Argument2
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
@@ -42,70 +40,59 @@ public class LobbyTransferHandler implements PluginMessageListener
         // Request the status of the provided server type from the proxy server
         MainHubHandler.getPlugin().getServer().sendPluginMessage(MainHubHandler.getPlugin(), ChannelNames.MCMG, out.toByteArray());
 
-        // !!! The onPluginMessageReceived method handles the rest of the functionality described in the method header.
+        // The remaining functionality described in the method header is handled by the PluginMessageHandler class
+        // and the handleServerTransferResponse method
     }
 
     /**
-     * Handles returned information from the "transfer" method's request to the proxy server
-     * (a SERVER_TRANSFER_RESPONSE).
+     * Handles returned information (a SERVER_TRANSFER_RESPONSE) from the SERVER_TRANSFER_REQUEST sent to the proxy
+     * server by the transferPlayerToServer method call.
      * <p>
      * Upon receiving a SERVER_TRANSFER_RESPONSE, the message contents are read and handled as follows:
      * <p>
-     * If an active server of the specified type was found (the message's first argument == true), the relayed
-     * player (the second argument) shall be sent to the relayed server (the third argument).
+     * The heard response message is only handled if the message's specified player exists within this plugin's server.
      * <p>
-     * If no active server was found, assume the proxy is working to start one up, and alert the requesting player
-     * that this is happening.
-     * @param channel The channel that the received message was sent over
-     * @param player Ignore
-     * @param bytes The received message's data/contents
+     * Depending on the response message's specified server status, various actions are taken: alert the player of the
+     * server transfer request status, transfer the player, etc.
+     * @param in The ByteArrayDataInput containing LOBBY_TRANSFER_RESPONSE plugin message data
      */
-    @Override
-    public void onPluginMessageReceived(@NotNull String channel, @NotNull Player player, @NotNull byte[] bytes)
+    public static void handleServerTransferResponse(ByteArrayDataInput in)
     {
-        // Only handle messages on the MCMG channel
-        if (!channel.equals(ChannelNames.MCMG)) return;
+        String serverStatus = in.readUTF();
+        String playerName = in.readUTF();
+        Player player = MainHubHandler.getPlugin().getServer().getPlayer(playerName);
+        String serverName = in.readUTF();
 
-        // Read message data/contents
-        ByteArrayDataInput in = ByteStreams.newDataInput(bytes);
-        String subChannel = in.readUTF();
+        // Only handle the message if the specified player is in this server (prevents duplicate handling)
+        if (!MainHubHandler.getPlugin().getServer().getOnlinePlayers().contains(player)) return;
 
-        // Only handle SERVER_TRANSFER_RESPONSE message types
-        if (subChannel.equals(MessageTypes.LOBBY_TRANSFER_RESPONSE)) {
-            String serverStatus = in.readUTF();
-            String playerName = in.readUTF();
-            player = MainHubHandler.getPlugin().getServer().getPlayer(playerName);
-            String serverName = in.readUTF();
+        // If there is no active server to transfer to; alert the player
+        switch (serverStatus)
+        {
+            case ServerStatuses.FULL:
+                player.sendMessage(ChatColor.YELLOW +
+                        "[Warning] Servers are full! " +
+                        "\nPlease attempt reconnecting soon...");
+                break;
+            case ServerStatuses.BEGAN_INITIALIZATION:
+                player.sendMessage(ChatColor.YELLOW +
+                        "[Warning] No servers were available, so we started a new one for you! " +
+                        "\nPlease attempt reconnecting soon...");
+                break;
+            case ServerStatuses.INITIALIZING:
+                player.sendMessage(ChatColor.YELLOW +
+                        "The requested server is currently booting up!" +
+                        "\nPlease attempt reconnecting soon...");
+                break;
+            case ServerStatuses.FAILED_INITIALIZATION:
+                player.sendMessage(ChatColor.RED +
+                        "[ERROR] Critical failures occurred while attempting to start a new server...");
+            case ServerStatuses.TRANSFERABLE:
+                // Otherwise, there is an active server, so transfer the player there
+                player.sendMessage(ChatColor.GREEN + "Transferring you to another server...");
+                sendServerTransferInstruction(serverName, playerName);
+                break;
 
-            // Only handle the message if the specified player is in this server (prevents duplicate handling)
-            if (!MainHubHandler.getPlugin().getServer().getOnlinePlayers().contains(player)) return;
-
-            // If there is no active server to transfer to; alert the player
-            switch (serverStatus) {
-                case ServerStatuses.FULL:
-                    player.sendMessage(ChatColor.YELLOW +
-                            "[Warning] Servers are full! " +
-                            "\nPlease attempt reconnecting soon...");
-                    break;
-                case ServerStatuses.BEGAN_INITIALIZATION:
-                    player.sendMessage(ChatColor.YELLOW +
-                            "[Warning] No servers were available, so we started a new one for you! " +
-                            "\nPlease attempt reconnecting soon...");
-                    break;
-                case ServerStatuses.INITIALIZING:
-                    player.sendMessage(ChatColor.YELLOW +
-                            "The requested server is currently booting up!" +
-                            "\nPlease attempt reconnecting soon...");
-                    break;
-                case ServerStatuses.FAILED_INITIALIZATION:
-                    player.sendMessage(ChatColor.RED +
-                            "[ERROR] Critical failures occurred while attempting to start a new server...");
-                case ServerStatuses.TRANSFERABLE:
-                    // Otherwise, there is an active server, so transfer the player there
-                    player.sendMessage(ChatColor.GREEN + "Transferring you to another server...");
-                    proxyTransfer(serverName, playerName);
-                    break;
-            }
         }
     }
 
@@ -115,7 +102,7 @@ public class LobbyTransferHandler implements PluginMessageListener
      * @param serverName The official server name - recognized by Velocity - that the player will be transferred to
      * @param playerName The name of the player that is being transferred
      */
-    private static void proxyTransfer(String serverName, String playerName)
+    private static void sendServerTransferInstruction(String serverName, String playerName)
     {
         // Prepare plugin message bytes: MessageType, Argument1, Argument2
         ByteArrayDataOutput out = ByteStreams.newDataOutput();
